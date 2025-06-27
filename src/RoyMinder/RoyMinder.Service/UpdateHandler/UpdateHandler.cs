@@ -49,14 +49,11 @@ public class UpdateHandler(ITelegramBotClient bot, ILogger<UpdateHandler> logger
 
         Message sentMessage = await (messageText.Split(' ')[0] switch
         {
-            "/photo" => SendPhoto(msg),
             "/inline_buttons" => SendInlineKeyboard(msg),
             "/keyboard" => SendReplyKeyboard(msg),
             "/remove" => RemoveKeyboard(msg),
             "/request" => RequestContactAndLocation(msg),
             "/inline_mode" => StartInlineQuery(msg),
-            "/poll" => SendPoll(msg),
-            "/poll_anonymous" => SendAnonymousPoll(msg),
             "/throw" => FailingHandler(msg),
             _ => Usage(msg)
         });
@@ -67,27 +64,16 @@ public class UpdateHandler(ITelegramBotClient bot, ILogger<UpdateHandler> logger
     {
         const string usage = """
                                  <b><u>Bot menu</u></b>:
-                                 /photo          - send a photo
                                  /inline_buttons - send inline buttons
                                  /keyboard       - send keyboard buttons
                                  /remove         - remove keyboard buttons
                                  /request        - request location or contact
                                  /inline_mode    - send inline-mode results list
-                                 /poll           - send a poll
-                                 /poll_anonymous - send an anonymous poll
                                  /throw          - what happens if handler fails
                              """;
         return await bot.SendMessage(msg.Chat, usage, parseMode: ParseMode.Html, replyMarkup: new ReplyKeyboardRemove());
     }
-
-    async Task<Message> SendPhoto(Message msg)
-    {
-        await bot.SendChatAction(msg.Chat, ChatAction.UploadPhoto);
-        await Task.Delay(2000); // simulate a long task
-        await using var fileStream = new FileStream("Files/bot.gif", FileMode.Open, FileAccess.Read);
-        return await bot.SendPhoto(msg.Chat, fileStream, caption: "Read https://telegrambots.github.io/book/");
-    }
-
+    
     // Send inline keyboard. You can process responses in OnCallbackQuery handler
     async Task<Message> SendInlineKeyboard(Message msg)
     {
@@ -126,17 +112,7 @@ public class UpdateHandler(ITelegramBotClient bot, ILogger<UpdateHandler> logger
         return await bot.SendMessage(msg.Chat, "Press the button to start Inline Query\n\n" +
                                                "(Make sure you enabled Inline Mode in @BotFather)", replyMarkup: new InlineKeyboardMarkup(button));
     }
-
-    async Task<Message> SendPoll(Message msg)
-    {
-        return await bot.SendPoll(msg.Chat, "Question", PollOptions, isAnonymous: false);
-    }
-
-    async Task<Message> SendAnonymousPoll(Message msg)
-    {
-        return await bot.SendPoll(chatId: msg.Chat, "Question", PollOptions);
-    }
-
+    
     static Task<Message> FailingHandler(Message msg)
     {
         throw new NotImplementedException("FailingHandler");
