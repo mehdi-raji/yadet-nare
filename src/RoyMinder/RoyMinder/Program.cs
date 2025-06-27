@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RoyMinder.Service.PollingService;
 using RoyMinder.Service.ReceiverService;
 using RoyMinder.Service.UpdateHandler;
 using Telegram.Bot;
