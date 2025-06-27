@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using RoyMinder.Data.User;
 
 namespace RoyMinder.Repository.DbContext
 {
@@ -9,9 +10,11 @@ namespace RoyMinder.Repository.DbContext
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
         }
         
+        public DbSet<Chat> Chat { get; set; }
+
+        public DbSet<Event> Event { get; set; }
 
     }
 }
