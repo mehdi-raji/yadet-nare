@@ -11,10 +11,9 @@ namespace RoyMinder.Repository.DbContext
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
-        
-        public DbSet<Chat> Chat { get; set; }
 
-        public DbSet<Event> Event { get; set; }
-
+        public DbSet<User> User { get; set; }
+        public DbSet<Activity> Activity { get; set; }
+        public DbSet<Alarm> Alarm { get; set; }
     }
 }

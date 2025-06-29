@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using Microsoft.Extensions.Logging;
+using RoyMinder.Service.Activity;
 using RoyMinder.Service.Infrastructure;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
@@ -12,11 +14,13 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace RoyMinder.Service.UpdateHandler;
 
-public class UpdateHandler(ITelegramBotClient bot, ILogger<UpdateHandler> logger) : IUpdateHandler
+public class UpdateHandler(ITelegramBotClient bot, IActivityService activityService, ILogger<UpdateHandler> logger)
+    : IUpdateHandler
 {
     private static readonly InputPollOption[] PollOptions = ["Hello", "World!"];
 
-    public async Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, HandleErrorSource source, CancellationToken cancellationToken)
+    public async Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, HandleErrorSource source,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("HandleError: {Exception}", exception);
         // Cooldown in case of network connection error
@@ -24,23 +28,24 @@ public class UpdateHandler(ITelegramBotClient bot, ILogger<UpdateHandler> logger
             await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
     }
 
-    public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+    public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update,
+        CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         await (update switch
         {
-            { Message: { } message }                        => OnMessage(message),
-            { EditedMessage: { } message }                  => OnMessage(message),
-            { CallbackQuery: { } callbackQuery }            => OnCallbackQuery(callbackQuery),
-            { InlineQuery: { } inlineQuery }                => OnInlineQuery(inlineQuery),
-            { ChosenInlineResult: { } chosenInlineResult }  => OnChosenInlineResult(chosenInlineResult),
-            { Poll: { } poll }                              => OnPoll(poll),
-            { PollAnswer: { } pollAnswer }                  => OnPollAnswer(pollAnswer),
+            { Message: { } message } => OnMessage(message),
+            { EditedMessage: { } message } => OnMessage(message),
+            { CallbackQuery: { } callbackQuery } => OnCallbackQuery(callbackQuery),
+            { InlineQuery: { } inlineQuery } => OnInlineQuery(inlineQuery),
+            { ChosenInlineResult: { } chosenInlineResult } => OnChosenInlineResult(chosenInlineResult),
+            { Poll: { } poll } => OnPoll(poll),
+            { PollAnswer: { } pollAnswer } => OnPollAnswer(pollAnswer),
             // UpdateType.ChannelPost:
             // UpdateType.EditedChannelPost:
             // UpdateType.ShippingQuery:
             // UpdateType.PreCheckoutQuery:
-            _                                               => UnknownUpdateHandlerAsync(update)
+            _ => UnknownUpdateHandlerAsync(update)
         });
     }
 
@@ -58,20 +63,32 @@ public class UpdateHandler(ITelegramBotClient bot, ILogger<UpdateHandler> logger
             "/request" => RequestContactAndLocation(msg),
             "/inline_mode" => StartInlineQuery(msg),
             "/throw" => FailingHandler(msg),
-            $"{PersianText.DontForget}" => ShowRemindersMenu(msg),
+            $"{Text.DontForget}" => ShowActivities(msg),
+            $"{Text.AddActivity}" => ShowActivities(msg),
             _ => Default(msg)
         });
     }
 
-    private async Task ShowRemindersMenu(Message msg)
+    private async Task ShowActivities(Message msg)
     {
+        var inlineMarkup = new InlineKeyboardMarkup();
+
+        var activities = await activityService.GetAll(msg.Chat.Id);
+        inlineMarkup = activities.Aggregate(inlineMarkup,
+            (current, activity) => current.AddButton($"{Emoji.Pushpin} {activity.Title}", activity.Id.ToString()));
+        inlineMarkup.AddNewRow(Text.AddActivity);
+        
+        await bot.SendMessage(msg.Chat, "یادت نره!", replyMarkup: inlineMarkup);
+        
         
     }
+
     private async Task Default(Message msg)
     {
         await Usage(msg);
         await SendUsageReplyKeyboard(msg);
     }
+
     async Task Usage(Message msg)
     {
         const string usage = """
@@ -85,7 +102,7 @@ public class UpdateHandler(ITelegramBotClient bot, ILogger<UpdateHandler> logger
                              """;
         await bot.SendMessage(msg.Chat, usage, parseMode: ParseMode.Html, replyMarkup: new ReplyKeyboardRemove());
     }
-    
+
     // Send inline keyboard. You can process responses in OnCallbackQuery handler
     private async Task InlineKeyboard(Message msg)
     {
@@ -100,8 +117,9 @@ public class UpdateHandler(ITelegramBotClient bot, ILogger<UpdateHandler> logger
     private async Task SendUsageReplyKeyboard(Message msg)
     {
         var replyMarkup = new ReplyKeyboardMarkup(true)
-            .AddNewRow(PersianText.DontForget)
+            .AddNewRow(Text.DontForget, nameof(Text.DontForget))
             .AddNewRow().AddButton("2.1").AddButton("2.2");
+        
         await bot.SendMessage(msg.Chat, "Keyboard buttons:", replyMarkup: replyMarkup);
     }
 
@@ -121,8 +139,9 @@ public class UpdateHandler(ITelegramBotClient bot, ILogger<UpdateHandler> logger
     private async Task StartInlineQuery(Message msg)
     {
         var button = InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("Inline Mode");
-         await bot.SendMessage(msg.Chat, "Press the button to start Inline Query\n\n" +
-                                               "(Make sure you enabled Inline Mode in @BotFather)", replyMarkup: new InlineKeyboardMarkup(button));
+        await bot.SendMessage(msg.Chat, "Press the button to start Inline Query\n\n" +
+                                        "(Make sure you enabled Inline Mode in @BotFather)",
+            replyMarkup: new InlineKeyboardMarkup(button));
     }
 
     private static Task FailingHandler(Message msg)
@@ -144,7 +163,8 @@ public class UpdateHandler(ITelegramBotClient bot, ILogger<UpdateHandler> logger
     {
         logger.LogInformation("Received inline query from: {InlineQueryFromId}", inlineQuery.From.Id);
 
-        InlineQueryResult[] results = [ // displayed result
+        InlineQueryResult[] results =
+        [ // displayed result
             new InlineQueryResultArticle("1", "Telegram.Bot", new InputTextMessageContent("hello")),
             new InlineQueryResultArticle("2", "is the best", new InputTextMessageContent("world"))
         ];

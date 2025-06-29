@@ -2,9 +2,9 @@
 
 namespace RoyMinder.Data.User;
 
-public class Chat
+public class User
 {
     public int Id { get; set; }
-    public string ChatId { get; set; }
+    public long? ChatId { get; set; }
     
 }

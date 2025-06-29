@@ -1,4 +1,6 @@
-﻿namespace RoyMinder.Service.ReceiverService.Abstract;
+﻿using System.Threading;
+
+namespace RoyMinder.Service.ReceiverService.Abstract;
 
 public interface IReceiverService
 {

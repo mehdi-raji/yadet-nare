@@ -5,9 +5,9 @@ using RoyMinder.Data.User;
 
 namespace RoyMinder.Repository.Config;
 
-public class ChatConfiguration :IEntityTypeConfiguration<Chat> 
+public class ChatConfiguration :IEntityTypeConfiguration<User> 
 {
-    public void Configure(EntityTypeBuilder<Chat> builder)
+    public void Configure(EntityTypeBuilder<User> builder)
     {
         
     }
