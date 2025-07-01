@@ -10,7 +10,6 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InlineQueryResults;
 using Telegram.Bot.Types.ReplyMarkups;
 using YadetNare.Domain.Activity;
-using YadetNare.Domain.Infrastructure;
 
 namespace YadetNare.Domain.UpdateHandler;
 

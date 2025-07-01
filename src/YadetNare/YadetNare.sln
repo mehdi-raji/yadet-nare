@@ -15,6 +15,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YadetNare.Persistence", "YadetNare.Persistence\YadetNare.Persistence.csproj", "{3BFC9624-F1A7-4A81-95AF-61ECD97901F8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4- YadetNare.Shared", "4- YadetNare.Shared", "{340E2D05-92B8-4D19-890C-861EF75A73C0}"
+	ProjectSection(SolutionItems) = preProject
+		Text.cs = Text.cs
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YadetNare.Shared", "YadetNare.Shared\YadetNare.Shared.csproj", "{0062E1F5-5A31-4F82-A7FE-1E59677E8493}"
 EndProject

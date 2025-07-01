@@ -1,4 +1,4 @@
-﻿namespace YadetNare.Domain.Infrastructure;
+﻿namespace YadetNare.Shared;
 
 public static class Text
 {
