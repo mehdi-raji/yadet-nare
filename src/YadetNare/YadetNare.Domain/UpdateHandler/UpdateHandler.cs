@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
@@ -10,6 +10,7 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InlineQueryResults;
 using Telegram.Bot.Types.ReplyMarkups;
 using YadetNare.Domain.Activity;
+using YadetNare.Shared;
 
 namespace YadetNare.Domain.UpdateHandler;
 
@@ -54,7 +55,7 @@ public class UpdateHandler(ITelegramBotClient bot, IActivityService activityServ
         if (msg.Text is not { } messageText)
             return;
 
-        await (messageText.Split(' ')[0] switch
+        await (messageText switch
         {
             "/inline_buttons" => InlineKeyboard(msg),
             "/keyboard" => SendUsageReplyKeyboard(msg),
@@ -74,8 +75,9 @@ public class UpdateHandler(ITelegramBotClient bot, IActivityService activityServ
 
         var activities = await activityService.GetAll(msg.Chat.Id);
         inlineMarkup = activities.Aggregate(inlineMarkup,
-            (current, activity) => current.AddButton($"{Emoji.Pushpin} {activity.Title}", activity.Id.ToString()));
-        inlineMarkup.AddNewRow(Text.AddActivity);
+            (current, activity) => current.AddButton($"{Emoji.Pushpin} {activity.Title}", CallBackQueryHelper.GenerateShowData<YadetNare.Entity.User.Activity>(activity.Id)));
+        inlineMarkup.AddNewRow()
+            .AddButton(Text.AddActivity, nameof(Text.AddActivity));
         
         await bot.SendMessage(msg.Chat, "یادت نره!", replyMarkup: inlineMarkup);
         
@@ -116,7 +118,7 @@ public class UpdateHandler(ITelegramBotClient bot, IActivityService activityServ
     private async Task SendUsageReplyKeyboard(Message msg)
     {
         var replyMarkup = new ReplyKeyboardMarkup(true)
-            .AddNewRow(Text.DontForget, nameof(Text.DontForget))
+            .AddNewRow(Text.DontForget)
             .AddNewRow().AddButton("2.1").AddButton("2.2");
         
         await bot.SendMessage(msg.Chat, "Keyboard buttons:", replyMarkup: replyMarkup);
@@ -151,11 +153,23 @@ public class UpdateHandler(ITelegramBotClient bot, IActivityService activityServ
     // Process Inline Keyboard callback data
     private async Task OnCallbackQuery(CallbackQuery callbackQuery)
     {
+        var data = callbackQuery.Data;
+        await (data switch
+        {
+            nameof(Text.AddActivity) => AddActivity(callbackQuery),
+            
+            _ => Default(callbackQuery.Message)
+        });
+        
         logger.LogInformation("Received inline keyboard callback from: {CallbackQueryId}", callbackQuery.Id);
         await bot.AnswerCallbackQuery(callbackQuery.Id, $"Received {callbackQuery.Data}");
         await bot.SendMessage(callbackQuery.Message!.Chat, $"Received {callbackQuery.Data}");
     }
 
+    private async Task AddActivity(CallbackQuery callbackQuery)
+    {
+        
+    }
     #region Inline Mode
 
     private async Task OnInlineQuery(InlineQuery inlineQuery)

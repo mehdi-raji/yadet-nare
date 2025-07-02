@@ -22,7 +22,7 @@ namespace YadetNare.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("YadetNare.Presentation.Data.User.Activity", b =>
+            modelBuilder.Entity("YadetNare.Entity.User.Activity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace YadetNare.Persistence.Migrations
                     b.ToTable("Activity");
                 });
 
-            modelBuilder.Entity("YadetNare.Presentation.Data.User.Alarm", b =>
+            modelBuilder.Entity("YadetNare.Entity.User.Alarm", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,7 +70,7 @@ namespace YadetNare.Persistence.Migrations
                     b.ToTable("Alarm");
                 });
 
-            modelBuilder.Entity("YadetNare.Presentation.Data.User.User", b =>
+            modelBuilder.Entity("YadetNare.Entity.User.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,9 +86,9 @@ namespace YadetNare.Persistence.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("YadetNare.Presentation.Data.User.Activity", b =>
+            modelBuilder.Entity("YadetNare.Entity.User.Activity", b =>
                 {
-                    b.HasOne("YadetNare.Presentation.Data.User.User", "User")
+                    b.HasOne("YadetNare.Entity.User.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -97,9 +97,9 @@ namespace YadetNare.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("YadetNare.Presentation.Data.User.Alarm", b =>
+            modelBuilder.Entity("YadetNare.Entity.User.Alarm", b =>
                 {
-                    b.HasOne("YadetNare.Presentation.Data.User.Activity", "Activity")
+                    b.HasOne("YadetNare.Entity.User.Activity", "Activity")
                         .WithMany("Alarms")
                         .HasForeignKey("ActivityId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -108,7 +108,7 @@ namespace YadetNare.Persistence.Migrations
                     b.Navigation("Activity");
                 });
 
-            modelBuilder.Entity("YadetNare.Presentation.Data.User.Activity", b =>
+            modelBuilder.Entity("YadetNare.Entity.User.Activity", b =>
                 {
                     b.Navigation("Alarms");
                 });
