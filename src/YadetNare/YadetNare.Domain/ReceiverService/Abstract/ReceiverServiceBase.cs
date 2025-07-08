@@ -1,6 +1,4 @@
 ﻿using System.Threading;
-using Microsoft.Extensions.Logging;
-using Telegram.Bot;
 using Telegram.Bot.Polling;
 
 namespace YadetNare.Domain.ReceiverService.Abstract;

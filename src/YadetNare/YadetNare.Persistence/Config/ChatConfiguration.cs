@@ -5,9 +5,9 @@ using YadetNare.Entity.User;
 
 namespace YadetNare.Persistence.Config;
 
-public class ChatConfiguration :IEntityTypeConfiguration<User> 
+public class ChatConfiguration :IEntityTypeConfiguration<UserEntity> 
 {
-    public void Configure(EntityTypeBuilder<User> builder)
+    public void Configure(EntityTypeBuilder<UserEntity> builder)
     {
         
     }

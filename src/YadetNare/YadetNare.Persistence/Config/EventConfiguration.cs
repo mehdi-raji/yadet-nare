@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using YadetNare.Entity.User;
+using YadetNare.Entity.Activity;
 
 namespace YadetNare.Persistence.Config;
 
-public class EventConfiguration :IEntityTypeConfiguration<Activity> 
+public class EventConfiguration :IEntityTypeConfiguration<ActivityEntity> 
 {
-    public void Configure(EntityTypeBuilder<Activity> builder)
+    public void Configure(EntityTypeBuilder<ActivityEntity> builder)
     {
         builder.Property(x=>x.Title).IsRequired().HasMaxLength(100);
         builder.Property(x=>x.Description).HasMaxLength(500);

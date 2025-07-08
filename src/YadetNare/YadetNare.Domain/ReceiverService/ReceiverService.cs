@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Telegram.Bot;
-using YadetNare.Domain.ReceiverService.Abstract;
+﻿using YadetNare.Domain.ReceiverService.Abstract;
 
 namespace YadetNare.Domain.ReceiverService;
 

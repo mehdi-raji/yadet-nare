@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using YadetNare.Entity.Activity;
+using YadetNare.Entity.Alarm;
 using YadetNare.Entity.User;
 
 namespace YadetNare.Persistence.DbContext
@@ -12,8 +14,8 @@ namespace YadetNare.Persistence.DbContext
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        public DbSet<User> User { get; set; }
-        public DbSet<Activity> Activity { get; set; }
-        public DbSet<Alarm> Alarm { get; set; }
+        public DbSet<UserEntity> User { get; set; }
+        public DbSet<ActivityEntity> Activity { get; set; }
+        public DbSet<AlarmEntity> Alarm { get; set; }
     }
 }

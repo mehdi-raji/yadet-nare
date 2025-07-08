@@ -1,8 +1,5 @@
-﻿using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using System.Threading;
-using Microsoft.Extensions.Logging;
-using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
@@ -22,7 +19,8 @@ public class UpdateHandler(ITelegramBotClient bot, IActivityService activityServ
     public async Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, HandleErrorSource source,
         CancellationToken cancellationToken)
     {
-        logger.LogInformation("HandleError: {Exception}", exception);
+        logger.LogInformation("Exception: {Exception}", exception);
+        
         // Cooldown in case of network connection error
         if (exception is RequestException)
             await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
@@ -52,6 +50,8 @@ public class UpdateHandler(ITelegramBotClient bot, IActivityService activityServ
     private async Task OnMessage(Message msg)
     {
         logger.LogInformation("Receive message type: {MessageType}", msg.Type);
+        
+        //todo : check if this is not necessary
         if (msg.Text is not { } messageText)
             return;
 
@@ -63,26 +63,12 @@ public class UpdateHandler(ITelegramBotClient bot, IActivityService activityServ
             "/request" => RequestContactAndLocation(msg),
             "/inline_mode" => StartInlineQuery(msg),
             "/throw" => FailingHandler(msg),
-            $"{Text.DontForget}" => ShowActivities(msg),
-            $"{Text.AddActivity}" => ShowActivities(msg),
+            $"{Text.DontForget}" => activityService.ShowAll(msg),
             _ => Default(msg)
         });
     }
 
-    private async Task ShowActivities(Message msg)
-    {
-        var inlineMarkup = new InlineKeyboardMarkup();
 
-        var activities = await activityService.GetAll(msg.Chat.Id);
-        inlineMarkup = activities.Aggregate(inlineMarkup,
-            (current, activity) => current.AddButton($"{Emoji.Pushpin} {activity.Title}", CallBackQueryHelper.GenerateShowData<YadetNare.Entity.User.Activity>(activity.Id)));
-        inlineMarkup.AddNewRow()
-            .AddButton(Text.AddActivity, nameof(Text.AddActivity));
-        
-        await bot.SendMessage(msg.Chat, "یادت نره!", replyMarkup: inlineMarkup);
-        
-        
-    }
 
     private async Task Default(Message msg)
     {
@@ -110,7 +96,7 @@ public class UpdateHandler(ITelegramBotClient bot, IActivityService activityServ
         var inlineMarkup = new InlineKeyboardMarkup()
             .AddNewRow("1.1", "1.2", "1.3")
             .AddNewRow()
-            .AddButton("WithCallbackData", "CallbackData")
+            .AddButton("WithCallbackData", "CallbackData")  
             .AddButton(InlineKeyboardButton.WithUrl("WithUrl", "https://github.com/TelegramBots/Telegram.Bot"));
         await bot.SendMessage(msg.Chat, "Inline buttons:", replyMarkup: inlineMarkup);
     }
@@ -153,23 +139,22 @@ public class UpdateHandler(ITelegramBotClient bot, IActivityService activityServ
     // Process Inline Keyboard callback data
     private async Task OnCallbackQuery(CallbackQuery callbackQuery)
     {
-        var data = callbackQuery.Data;
+        // refactor: magic numbers in here!!
+        var data = callbackQuery.Data!.Split(":")[0];
+        // refactor: type safe!
         await (data switch
         {
-            nameof(Text.AddActivity) => AddActivity(callbackQuery),
+            //todo: create a manage telegram class for managing all the entities related queries
+            "activity" => activityService.Manage(callbackQuery),
             
             _ => Default(callbackQuery.Message)
         });
         
         logger.LogInformation("Received inline keyboard callback from: {CallbackQueryId}", callbackQuery.Id);
         await bot.AnswerCallbackQuery(callbackQuery.Id, $"Received {callbackQuery.Data}");
-        await bot.SendMessage(callbackQuery.Message!.Chat, $"Received {callbackQuery.Data}");
+
     }
 
-    private async Task AddActivity(CallbackQuery callbackQuery)
-    {
-        
-    }
     #region Inline Mode
 
     private async Task OnInlineQuery(InlineQuery inlineQuery)

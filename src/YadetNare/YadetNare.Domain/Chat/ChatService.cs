@@ -6,7 +6,7 @@ namespace YadetNare.Domain.Chat;
 
 public class ChatService(AppDbContext dbContext) : IChatService
 {
-    public async Task<User> Get(long chatId)
+    public async Task<UserEntity> Get(long chatId)
     {
         return await dbContext.User.AsNoTracking().FirstOrDefaultAsync(x => x.ChatId == chatId);
     }
@@ -14,6 +14,6 @@ public class ChatService(AppDbContext dbContext) : IChatService
 
 public interface IChatService
 {
-    public Task<User> Get(long chatId);
+    public Task<UserEntity> Get(long chatId);
 }
 

@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using YadetNare.Domain.PollingService;
+﻿using YadetNare.Domain.PollingService;
 
 namespace YadetNare.Domain.ReceiverService;
 
