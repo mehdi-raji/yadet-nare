@@ -4,7 +4,7 @@ using YadetNare.Entity.Activity;
 
 namespace YadetNare.Persistence.Config;
 
-public class EventConfiguration :IEntityTypeConfiguration<ActivityEntity> 
+public class ActivityConfiguration :IEntityTypeConfiguration<ActivityEntity> 
 {
     public void Configure(EntityTypeBuilder<ActivityEntity> builder)
     {

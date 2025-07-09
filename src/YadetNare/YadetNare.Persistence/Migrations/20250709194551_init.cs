@@ -12,19 +12,6 @@ namespace YadetNare.Persistence.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ChatId = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Activity",
                 columns: table => new
                 {
@@ -32,17 +19,11 @@ namespace YadetNare.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    ChatId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Activity", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Activity_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,11 +47,6 @@ namespace YadetNare.Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Activity_UserId",
-                table: "Activity",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Alarm_ActivityId",
                 table: "Alarm",
                 column: "ActivityId");
@@ -84,9 +60,6 @@ namespace YadetNare.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Activity");
-
-            migrationBuilder.DropTable(
-                name: "User");
         }
     }
 }

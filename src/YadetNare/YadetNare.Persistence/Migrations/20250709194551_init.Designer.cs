@@ -12,7 +12,7 @@ using YadetNare.Persistence.DbContext;
 namespace YadetNare.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250702191340_init")]
+    [Migration("20250709194551_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -25,13 +25,16 @@ namespace YadetNare.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("YadetNare.Entity.User.Activity", b =>
+            modelBuilder.Entity("YadetNare.Entity.Activity.ActivityEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<long?>("ChatId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -42,17 +45,12 @@ namespace YadetNare.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Activity");
                 });
 
-            modelBuilder.Entity("YadetNare.Entity.User.Alarm", b =>
+            modelBuilder.Entity("YadetNare.Entity.Alarm.AlarmEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,36 +71,9 @@ namespace YadetNare.Persistence.Migrations
                     b.ToTable("Alarm");
                 });
 
-            modelBuilder.Entity("YadetNare.Entity.User.User", b =>
+            modelBuilder.Entity("YadetNare.Entity.Alarm.AlarmEntity", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<long?>("ChatId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User");
-                });
-
-            modelBuilder.Entity("YadetNare.Entity.User.Activity", b =>
-                {
-                    b.HasOne("YadetNare.Entity.User.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("YadetNare.Entity.User.Alarm", b =>
-                {
-                    b.HasOne("YadetNare.Entity.User.Activity", "Activity")
+                    b.HasOne("YadetNare.Entity.Activity.ActivityEntity", "Activity")
                         .WithMany("Alarms")
                         .HasForeignKey("ActivityId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -111,7 +82,7 @@ namespace YadetNare.Persistence.Migrations
                     b.Navigation("Activity");
                 });
 
-            modelBuilder.Entity("YadetNare.Entity.User.Activity", b =>
+            modelBuilder.Entity("YadetNare.Entity.Activity.ActivityEntity", b =>
                 {
                     b.Navigation("Alarms");
                 });

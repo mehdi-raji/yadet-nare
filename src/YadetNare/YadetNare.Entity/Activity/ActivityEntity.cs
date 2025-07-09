@@ -8,13 +8,10 @@ public class ActivityEntity
 {
     public int Id { get; set; }
     
-    [Required]
     public string Title { get; set; }
     public string Description { get; set; }
     
-    public int UserId { get; set; }
-    public UserEntity User { get; set; }
-
+    public long? ChatId { get; set; }
     public List<AlarmEntity> Alarms { get; set; }
     
 }

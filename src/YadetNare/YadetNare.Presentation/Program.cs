@@ -4,7 +4,6 @@ using Microsoft.Extensions.Hosting;
 using YadetNare.Persistence.DbContext;
 using YadetNare.Domain.Activity;
 using YadetNare.Domain.Alarm;
-using YadetNare.Domain.Chat;
 using YadetNare.Domain.ReceiverService;
 using YadetNare.Domain.UpdateHandler;
 using Telegram.Bot;
@@ -20,7 +19,6 @@ var host = Host.CreateDefaultBuilder(args)
 
         services.AddScoped<UpdateHandler>();
         services.AddScoped<ReceiverService>();
-        services.AddScoped<IChatService,ChatService>();
         services.AddScoped<IAlarmService, AlarmService>();
         services.AddScoped<IActivityService, ActivityService>();
         services.AddHostedService<PollingService>();

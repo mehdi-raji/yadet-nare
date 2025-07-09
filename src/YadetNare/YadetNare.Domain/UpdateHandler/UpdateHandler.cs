@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
@@ -7,6 +8,7 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InlineQueryResults;
 using Telegram.Bot.Types.ReplyMarkups;
 using YadetNare.Domain.Activity;
+using YadetNare.Domain.Infrastructure;
 using YadetNare.Shared;
 
 namespace YadetNare.Domain.UpdateHandler;
@@ -72,8 +74,15 @@ public class UpdateHandler(ITelegramBotClient bot, IActivityService activityServ
 
     private async Task Default(Message msg)
     {
-        await Usage(msg);
-        await SendUsageReplyKeyboard(msg);
+        var userState = ChatInfo.States.GetValueOrDefault(msg.Chat.Id);
+        if (userState != null)
+            await HandleUserOperation(msg, userState);
+        else
+        {
+            await Usage(msg);
+            await SendUsageReplyKeyboard(msg);
+        }
+        
     }
 
     async Task Usage(Message msg)
@@ -90,6 +99,20 @@ public class UpdateHandler(ITelegramBotClient bot, IActivityService activityServ
         await bot.SendMessage(msg.Chat, usage, parseMode: ParseMode.Html, replyMarkup: new ReplyKeyboardRemove());
     }
 
+    async Task HandleUserOperation(Message msg, UserState state)
+    {
+        switch (state.EntityType)
+        {
+            case EntityType.Activity:
+                await activityService.HandleEdit(msg, state);
+                break;
+            case EntityType.Alarm:
+                break; 
+            default:
+                ChatInfo.States.Remove(msg.Chat.Id);
+                break;
+        }
+    }
     // Send inline keyboard. You can process responses in OnCallbackQuery handler
     private async Task InlineKeyboard(Message msg)
     {
