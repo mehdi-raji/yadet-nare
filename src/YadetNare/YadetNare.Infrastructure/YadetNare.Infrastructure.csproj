@@ -3,11 +3,8 @@
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>YadetNare.Persistence</RootNamespace>
     </PropertyGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\YadetNare.Entity\YadetNare.Entity.csproj" />
-    </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.6" />
@@ -20,6 +17,11 @@
 
     <ItemGroup>
       <Folder Include="Migrations\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\YadetNare.Domain\YadetNare.Domain.csproj" />
+      <ProjectReference Include="..\YadetNare.Shared\YadetNare.Shared.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
@@ -9,8 +8,9 @@ using Telegram.Bot.Types.InlineQueryResults;
 using Telegram.Bot.Types.ReplyMarkups;
 using YadetNare.Domain.Activity;
 using YadetNare.Domain.Infrastructure;
-using YadetNare.Shared;
 
+
+// todo: refactor
 namespace YadetNare.Domain.UpdateHandler;
 
 public class UpdateHandler(ITelegramBotClient bot, IActivityService activityService, ILogger<UpdateHandler> logger)

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using YadetNare.Entity.Activity;
-using YadetNare.Entity.Alarm;
+using YadetNare.Persistence.Alarm;
 
 namespace YadetNare.Persistence.DbContext
 {

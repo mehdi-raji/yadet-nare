@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using YadetNare.Entity.Alarm;
+using YadetNare.Persistence.Alarm;
 using YadetNare.Persistence.DbContext;
 
 
 namespace YadetNare.Domain.Alarm;
-
+// todo: refactor
 public class AlarmService(AppDbContext dbContext) : IAlarmService
 {
     public async Task<List<AlarmEntity>> GetByActivity(int activityId)

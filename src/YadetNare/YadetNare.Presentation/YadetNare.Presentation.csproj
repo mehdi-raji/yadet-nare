@@ -7,7 +7,7 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="..\YadetNare.Domain\YadetNare.Domain.csproj" />
+        <ProjectReference Include="..\YadetNare.Core\YadetNare.Core.csproj" />
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.6">

@@ -4,22 +4,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YadetNare.Presentation", "Y
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-YadetNare.Presentation", "1-YadetNare.Presentation", "{213DC961-6C47-4E29-B3E2-473E284AFABC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-YadetNare.Domain", "2-YadetNare.Domain", "{F6B31F3C-5902-427D-A979-3286786A2E66}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-YadetNare.Core", "2-YadetNare.Core", "{F6B31F3C-5902-427D-A979-3286786A2E66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YadetNare.Domain", "YadetNare.Domain\YadetNare.Domain.csproj", "{8FFEE2D2-2B66-4933-874D-6A48905B8232}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YadetNare.Core", "YadetNare.Core\YadetNare.Core.csproj", "{8FFEE2D2-2B66-4933-874D-6A48905B8232}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-YadetNare.Data", "3-YadetNare.Data", "{424B4DD0-5D47-47EE-A2A4-A5794D5EEF4B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-YadetNare.Infrastructure", "4-YadetNare.Infrastructure", "{424B4DD0-5D47-47EE-A2A4-A5794D5EEF4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YadetNare.Entity", "YadetNare.Entity\YadetNare.Entity.csproj", "{C6BA57BC-437B-428C-9198-95DE4B9B8DD2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YadetNare.Infrastructure", "YadetNare.Infrastructure\YadetNare.Infrastructure.csproj", "{3BFC9624-F1A7-4A81-95AF-61ECD97901F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YadetNare.Persistence", "YadetNare.Persistence\YadetNare.Persistence.csproj", "{3BFC9624-F1A7-4A81-95AF-61ECD97901F8}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4- YadetNare.Shared", "4- YadetNare.Shared", "{340E2D05-92B8-4D19-890C-861EF75A73C0}"
-	ProjectSection(SolutionItems) = preProject
-		Text.cs = Text.cs
-	EndProjectSection
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5- YadetNare.Shared", "5- YadetNare.Shared", "{340E2D05-92B8-4D19-890C-861EF75A73C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YadetNare.Shared", "YadetNare.Shared\YadetNare.Shared.csproj", "{0062E1F5-5A31-4F82-A7FE-1E59677E8493}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4- YadetNare.Domain", "4- YadetNare.Domain", "{0DEEC720-1C51-4C6A-882E-73ACE0FA3662}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YadetNare.Domain", "YadetNare.Domain\YadetNare.Domain.csproj", "{D108616B-267E-43B3-8C3B-9AE246CB2179}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +34,6 @@ Global
 		{8FFEE2D2-2B66-4933-874D-6A48905B8232}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FFEE2D2-2B66-4933-874D-6A48905B8232}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FFEE2D2-2B66-4933-874D-6A48905B8232}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C6BA57BC-437B-428C-9198-95DE4B9B8DD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6BA57BC-437B-428C-9198-95DE4B9B8DD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6BA57BC-437B-428C-9198-95DE4B9B8DD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6BA57BC-437B-428C-9198-95DE4B9B8DD2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3BFC9624-F1A7-4A81-95AF-61ECD97901F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3BFC9624-F1A7-4A81-95AF-61ECD97901F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BFC9624-F1A7-4A81-95AF-61ECD97901F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,12 +42,16 @@ Global
 		{0062E1F5-5A31-4F82-A7FE-1E59677E8493}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0062E1F5-5A31-4F82-A7FE-1E59677E8493}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0062E1F5-5A31-4F82-A7FE-1E59677E8493}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D108616B-267E-43B3-8C3B-9AE246CB2179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D108616B-267E-43B3-8C3B-9AE246CB2179}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D108616B-267E-43B3-8C3B-9AE246CB2179}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D108616B-267E-43B3-8C3B-9AE246CB2179}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6BFDC1D1-F1A6-4188-8B12-1106258FC915} = {213DC961-6C47-4E29-B3E2-473E284AFABC}
 		{8FFEE2D2-2B66-4933-874D-6A48905B8232} = {F6B31F3C-5902-427D-A979-3286786A2E66}
-		{C6BA57BC-437B-428C-9198-95DE4B9B8DD2} = {424B4DD0-5D47-47EE-A2A4-A5794D5EEF4B}
 		{3BFC9624-F1A7-4A81-95AF-61ECD97901F8} = {424B4DD0-5D47-47EE-A2A4-A5794D5EEF4B}
 		{0062E1F5-5A31-4F82-A7FE-1E59677E8493} = {340E2D05-92B8-4D19-890C-861EF75A73C0}
+		{D108616B-267E-43B3-8C3B-9AE246CB2179} = {0DEEC720-1C51-4C6A-882E-73ACE0FA3662}
 	EndGlobalSection
 EndGlobal

@@ -7,6 +7,7 @@ using YadetNare.Domain.Infrastructure;
 using YadetNare.Entity.Activity;
 using YadetNare.Persistence.DbContext;
 
+// todo: refactor
 
 namespace YadetNare.Domain.Activity;
 
