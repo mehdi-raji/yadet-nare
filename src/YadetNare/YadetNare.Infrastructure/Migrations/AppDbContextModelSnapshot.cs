@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using YadetNare.Persistence.DbContext;
+using YadetNare.Infrastructure.Common.Persistence;
 
 #nullable disable
 
-namespace YadetNare.Persistence.Migrations
+namespace YadetNare.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot

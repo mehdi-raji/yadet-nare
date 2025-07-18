@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace YadetNare.Domain.Infrastructure;
+namespace YadetNare.Core.Infrastructure;
 
 public record UserState(State State, string AffectedColumn, int? EntityId, EntityType EntityType);
 public static class ChatInfo

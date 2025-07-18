@@ -6,12 +6,12 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InlineQueryResults;
 using Telegram.Bot.Types.ReplyMarkups;
-using YadetNare.Domain.Activity;
-using YadetNare.Domain.Infrastructure;
+using YadetNare.Core.Activity;
+using YadetNare.Core.Infrastructure;
 
 
 // todo: refactor
-namespace YadetNare.Domain.UpdateHandler;
+namespace YadetNare.Core.UpdateHandler;
 
 public class UpdateHandler(ITelegramBotClient bot, IActivityService activityService, ILogger<UpdateHandler> logger)
     : IUpdateHandler

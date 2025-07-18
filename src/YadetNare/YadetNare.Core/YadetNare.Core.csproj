@@ -4,7 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>YadetNare.Domain</RootNamespace>
+        <RootNamespace>YadetNare.Core</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

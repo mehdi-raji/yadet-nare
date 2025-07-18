@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using YadetNare.Entity.Activity;
+using YadetNare.Domain.Activity;
 
-namespace YadetNare.Persistence.Config;
+namespace YadetNare.Infrastructure.Config;
 
 public class ActivityConfiguration :IEntityTypeConfiguration<ActivityEntity> 
 {

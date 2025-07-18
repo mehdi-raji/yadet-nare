@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using Telegram.Bot.Polling;
 
-namespace YadetNare.Domain.ReceiverService.Abstract;
+namespace YadetNare.Core.ReceiverService.Abstract;
 
 /// <summary>An abstract class to compose Receiver Service and Update Handler classes</summary>
 /// <typeparam name="TUpdateHandler">Update Handler to use in Update Receiver</typeparam>

@@ -1,6 +1,6 @@
-﻿using YadetNare.Entity.Activity;
+﻿using YadetNare.Domain.Activity;
 
-namespace YadetNare.Persistence.Alarm;
+namespace YadetNare.Domain.Alarm;
 
 public class AlarmEntity
 {

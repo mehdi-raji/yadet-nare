@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
-using YadetNare.Domain.Infrastructure;
-using YadetNare.Entity.Activity;
-using YadetNare.Persistence.DbContext;
+using YadetNare.Core.Infrastructure;
+using YadetNare.Domain.Activity;
+using YadetNare.Infrastructure.Common.Persistence;
 
 // todo: refactor
 
-namespace YadetNare.Domain.Activity;
+namespace YadetNare.Core.Activity;
 
 public class ActivityService(AppDbContext dbContext, ITelegramBotClient bot)
     : IActivityService

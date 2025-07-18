@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using YadetNare.Persistence.DbContext;
 using YadetNare.Domain.Activity;
 using YadetNare.Domain.Alarm;
-using YadetNare.Domain.ReceiverService;
-using YadetNare.Domain.UpdateHandler;
 using Telegram.Bot;
+using YadetNare.Core.Activity;
+using YadetNare.Core.Alarm;
+using YadetNare.Core.ReceiverService;
+using YadetNare.Core.UpdateHandler;
+using YadetNare.Infrastructure.Common.Persistence;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((_, services) =>

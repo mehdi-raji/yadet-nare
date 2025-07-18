@@ -1,9 +1,8 @@
 ﻿using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using YadetNare.Domain.ReceiverService.Abstract;
 
-namespace YadetNare.Domain.PollingService;
+namespace YadetNare.Core.ReceiverService.Abstract;
 
 /// <summary>An abstract class to compose Polling background service and Receiver implementation classes</summary>
 /// <remarks>See more: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services#consuming-a-scoped-service-in-a-background-task</remarks>

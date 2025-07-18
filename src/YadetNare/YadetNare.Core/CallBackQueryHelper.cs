@@ -1,4 +1,4 @@
-﻿namespace YadetNare.Domain;
+﻿namespace YadetNare.Core;
 
 public static class CallBackQueryHelper
 {

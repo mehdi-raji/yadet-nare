@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace YadetNare.Persistence.Migrations
+namespace YadetNare.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class init : Migration

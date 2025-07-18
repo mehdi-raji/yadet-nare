@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using YadetNare.Persistence.Alarm;
+﻿using YadetNare.Domain.Alarm;
 
-namespace YadetNare.Entity.Activity;
+namespace YadetNare.Domain.Activity;
 
 public class ActivityEntity
 {

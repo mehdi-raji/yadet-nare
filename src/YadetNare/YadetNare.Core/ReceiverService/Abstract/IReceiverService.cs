@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace YadetNare.Domain.ReceiverService.Abstract;
+namespace YadetNare.Core.ReceiverService.Abstract;
 
 public interface IReceiverService
 {

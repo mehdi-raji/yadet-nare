@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using YadetNare.Persistence.Alarm;
-using YadetNare.Persistence.DbContext;
+using YadetNare.Domain.Alarm;
+using YadetNare.Infrastructure.Common.Persistence;
 
-
-namespace YadetNare.Domain.Alarm;
+namespace YadetNare.Core.Alarm;
 // todo: refactor
 public class AlarmService(AppDbContext dbContext) : IAlarmService
 {
