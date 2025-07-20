@@ -7,4 +7,8 @@
         <RootNamespace>YadetNare.Domain</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\YadetNare.Shared\YadetNare.Shared.csproj" />
+    </ItemGroup>
+
 </Project>

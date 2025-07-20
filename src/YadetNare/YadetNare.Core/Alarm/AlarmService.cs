@@ -7,7 +7,7 @@ namespace YadetNare.Core.Alarm;
 // todo: refactor
 public class AlarmService(AppDbContext dbContext) : IAlarmService
 {
-    public async Task<List<AlarmEntity>> GetByActivity(int activityId)
+    public async Task<List<AlarmModel>> GetByActivity(int activityId)
     {
         return await dbContext.Alarm.AsNoTracking().Where(a => a.ActivityId == activityId).ToListAsync();
     }
@@ -15,5 +15,5 @@ public class AlarmService(AppDbContext dbContext) : IAlarmService
 
 public interface IAlarmService
 {
-    public Task <List<AlarmEntity>> GetByActivity(int activityId);
+    public Task <List<AlarmModel>> GetByActivity(int activityId);
 }

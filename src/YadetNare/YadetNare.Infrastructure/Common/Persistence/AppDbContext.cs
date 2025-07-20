@@ -13,6 +13,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : Microsoft.En
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
-    public DbSet<ActivityEntity> Activity { get; set; }
-    public DbSet<AlarmEntity> Alarm { get; set; }
+    public DbSet<ActivityModel> Activity { get; set; }
+    public DbSet<AlarmModel> Alarm { get; set; }
 }

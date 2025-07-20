@@ -2,7 +2,7 @@
 
 namespace YadetNare.Domain.Alarm;
 
-public class AlarmEntity
+public class AlarmModel
 {
     public int Id { get; set; }
     
@@ -10,6 +10,6 @@ public class AlarmEntity
     
     public int ActivityId { get; set; }
 
-    public ActivityEntity Activity { get; set; } = null!;
+    public ActivityModel Activity { get; set; } = null!;
 
 }

@@ -2,7 +2,7 @@
 
 namespace YadetNare.Domain.Activity;
 
-public class ActivityEntity
+public class ActivityModel
 {
     public int Id { get; set; } 
     
@@ -10,7 +10,8 @@ public class ActivityEntity
     public string Description { get; set; } =  null!;
 
     public long? ChatId { get; set; }
-    public List<AlarmEntity> Alarms { get; set; } = null!;
+    public List<AlarmModel> Alarms { get; set; } = null!;
+    
 
 }
 

@@ -7,13 +7,14 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InlineQueryResults;
 using Telegram.Bot.Types.ReplyMarkups;
 using YadetNare.Core.Activity;
+using YadetNare.Core.Activity.Telegram;
 using YadetNare.Core.Infrastructure;
 
 
 // todo: refactor
 namespace YadetNare.Core.UpdateHandler;
 
-public class UpdateHandler(ITelegramBotClient bot, IActivityService activityService, ILogger<UpdateHandler> logger)
+public class UpdateHandler(ITelegramBotClient bot, IActivityTelegramService activityTelegramService, ILogger<UpdateHandler> logger)
     : IUpdateHandler
 {
     private static readonly InputPollOption[] PollOptions = ["Hello", "World!"];
@@ -65,7 +66,7 @@ public class UpdateHandler(ITelegramBotClient bot, IActivityService activityServ
             "/request" => RequestContactAndLocation(msg),
             "/inline_mode" => StartInlineQuery(msg),
             "/throw" => FailingHandler(msg),
-            $"{Text.DontForget}" => activityService.ShowAll(msg),
+            $"{Text.DontForget}" => activityTelegramService.ShowAll(msg),
             _ => Default(msg)
         });
     }
@@ -104,7 +105,7 @@ public class UpdateHandler(ITelegramBotClient bot, IActivityService activityServ
         switch (state.EntityType)
         {
             case EntityType.Activity:
-                await activityService.HandleEdit(msg, state);
+                await activityTelegramService.HandleEdit(msg, state);
                 break;
             case EntityType.Alarm:
                 break; 
@@ -168,7 +169,7 @@ public class UpdateHandler(ITelegramBotClient bot, IActivityService activityServ
         await (data switch
         {
             //todo: create a manage telegram class for managing all the entities related queries
-            "activity" => activityService.Manage(callbackQuery),
+            "activity" => activityTelegramService.Manage(callbackQuery),
             
             _ => Default(callbackQuery.Message)
         });
