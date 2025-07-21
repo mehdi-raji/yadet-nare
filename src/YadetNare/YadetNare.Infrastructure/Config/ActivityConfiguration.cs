@@ -4,7 +4,7 @@ using YadetNare.Domain.Activity;
 
 namespace YadetNare.Infrastructure.Config;
 
-public class ActivityConfiguration :IEntityTypeConfiguration<ActivityModel> 
+internal class ActivityConfiguration :IEntityTypeConfiguration<ActivityModel> 
 {
     public void Configure(EntityTypeBuilder<ActivityModel> builder)
     {
